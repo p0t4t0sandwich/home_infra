@@ -1,0 +1,6 @@
+---
+- name: Update Home Servers
+  hosts: amp_targets
+  tasks:
+    - name: Offload Backups
+      command: /home/administrator/scripts/offload_backups

@@ -1,0 +1,28 @@
+---
+- name: Setup New Debian Server
+  hosts: new
+  tasks:
+    - name: apt-get update && apt-get upgrade
+      apt:
+        update_cache: yes
+        force_apt_get: yes
+        cache_valid_time: 3600
+        upgrade: yes
+    
+    - name: Install Tools
+      apt:
+        name:
+            - unattended-upgrades
+            - fail2ban
+            - cifs-utils
+        state: present
+    
+    - name: Set Time Zone
+      command: timedatectl set-timezone UTC
+    
+    - name: Activate Firewall
+      command: |
+        ufw default allow outgoing
+        ufw default deny incoming
+        ufw allow ssh
+        ufw enable

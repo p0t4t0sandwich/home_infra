@@ -1,0 +1,27 @@
+---
+- name: Update Home Servers
+  hosts: home
+  tasks:
+    - name: apt-get update && apt-get upgrade
+      apt:
+        update_cache: yes
+        force_apt_get: yes
+        cache_valid_time: 3600
+        upgrade: yes
+
+- name: Update VPN-Connected Server
+  hosts: remote
+  tasks:
+    - name: Disconect VPN
+      command: openvpn3 session-manage --disconnect --config /root/VPN/linode.ovpn
+
+    - name: apt-get update && apt-get upgrade
+      apt:
+        update_cache: yes
+        force_apt_get: yes
+        cache_valid_time: 3600
+        upgrade: yes
+
+    - name: Connect VPN
+      command: openvpn3 session-start --config /root/VPN/linode.ovpn
+

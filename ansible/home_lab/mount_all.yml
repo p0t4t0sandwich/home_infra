@@ -1,0 +1,6 @@
+---
+- name: Re-Mount Drives
+  hosts: home
+  tasks:
+    - name: Re-Mount Drives
+      command: mount -a

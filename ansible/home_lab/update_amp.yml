@@ -1,0 +1,6 @@
+---
+- name: Update AMP Servers
+  hosts: amp
+  tasks:
+    - name: Update AMP
+      shell: getamp update
